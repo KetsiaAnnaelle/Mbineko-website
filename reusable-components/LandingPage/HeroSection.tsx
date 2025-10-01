@@ -1,8 +1,10 @@
 
+
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useI18n } from "@/i18n"
+import { Link } from "react-router-dom"
 
 const Counter = ({ to, duration = 1500, suffix = "" }: { to: number; duration?: number; suffix?: string }) => {
   const [count, setCount] = useState(0)
@@ -113,35 +115,18 @@ const HeroSection = () => {
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  variant="outline"
-                  className="bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
-                >
-                  {t("cta.watchVideo", "Regarder la Vidéo")}
-                </Button>
+                <Link to="/vitual-tour-viewer">
+                  <Button
+                    variant="outline"
+                    className="bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+                  >
+                    {t("cta.watchVideo", "Regarder la Vidéo")}
+                  </Button>
+                  
+                </Link>
               </motion.div>
             </motion.div>
 
-            {/* Stats rapides */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-              className="flex items-center gap-8 pt-4"
-            >
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800">50K+</div>
-                <div className="text-sm text-gray-600">{t("hero.treesPlanted", "Arbres Plantés")}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800">15+</div>
-                <div className="text-sm text-gray-600">{t("hero.countries", "Pays")}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800">100K+</div>
-                <div className="text-sm text-gray-600">{t("hero.community", "Communauté")}</div>
-              </div>
-            </motion.div>
           </motion.div>
 
           {/* Right Content */}
@@ -167,7 +152,7 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 1.5 }}
           className="mt-16 md:mt-24 relative"
         >
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden border border-green-200/50  mb-6">
+          <div className="bg-white/95 mb-10 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden border border-green-200/50 ">
             <div className="relative z-10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -176,13 +161,13 @@ const HeroSection = () => {
                 className="text-3xl md:text-4xl font-bold text-green-900 text-center mb-8"
               >
                 {t("hero.moreThan", "Plus de")}{" "}
-                <span className="text-[#228B22]">150 {t("hero.forestsListed", "forêts déjà répertoriées")}</span>
+                <span className="text-[#228B22]">2 {t("hero.forestsListed", "forêts déjà répertoriées")}</span>
               </motion.h2>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                 <motion.div className="text-center p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border shadow-lg">
                   <div className="text-4xl md:text-5xl font-bold text-[#228B22] mb-2">
-                    <Counter to={150} suffix="+" />
+                    <Counter to={2} suffix="+" />
                   </div>
                   <div className="text-sm md:text-base text-[#228B22] font-medium">
                     {t("hero.forestsMonitored", "Forêts surveillées")}
@@ -191,7 +176,7 @@ const HeroSection = () => {
 
                 <motion.div className="text-center p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border shadow-lg">
                   <div className="text-4xl md:text-5xl font-bold text-[#228B22] mb-2">
-                    <Counter to={24} suffix="/7" />
+                    <Counter to={2} suffix="/7" />
                   </div>
                   <div className="text-sm md:text-base text-[#228B22] font-medium">
                     {t("hero.continuousMonitoring", "Surveillance continue")}
@@ -200,7 +185,7 @@ const HeroSection = () => {
 
                 <motion.div className="text-center p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border shadow-lg">
                   <div className="text-4xl md:text-5xl font-bold text-[#228B22] mb-2">
-                    <Counter to={500} suffix="+" />
+                    <Counter to={10} suffix="+" />
                   </div>
                   <div className="text-sm md:text-base text-[#228B22] font-medium">
                     {t("hero.sensorsDeployed", "Capteurs déployés")}
@@ -209,7 +194,7 @@ const HeroSection = () => {
 
                 <motion.div className="text-center p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border shadow-lg">
                   <div className="text-4xl md:text-5xl font-bold text-[#228B22] mb-2">
-                    <Counter to={98} suffix="%" />
+                    <Counter to={100} suffix="%" />
                   </div>
                   <div className="text-sm md:text-base text-[#228B22] font-medium">
                     {t("hero.clientSatisfaction", "Satisfaction clients")}

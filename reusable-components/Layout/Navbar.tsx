@@ -70,18 +70,18 @@ const Navbar = () => {
             <Button
               className="rounded-full px-6 py-2 font-semibold shadow-md text-white"
               style={{ backgroundColor: primaryGreen }}
-              onClick={() => (window.location.href = "/register")}
+              onClick={() => (window.location.href = "/login")}
             >
               {t("cta.register", "S'INSCRIRE")}
             </Button>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size="icon" className="h-9 w-9 rounded-full bg-white/20 hover:bg-white/30 border border-[#228B22]">
+                <Button size="icon" className="h-9 w-9 rounded-full bg-white hover:bg-white/30 border border-[#228B22]">
                   <Globe className="h-4 w-4 text-[#228B22]" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40 z-[99999]" sideOffset={5}>
+              <DropdownMenuContent align="end" className="w-40 z-[99999] bg-white" sideOffset={5}>
                 <DropdownMenuItem onClick={() => changeLanguage("FR")}>🇫🇷 Français</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => changeLanguage("EN")}>🇺🇸 English</DropdownMenuItem>
               </DropdownMenuContent>
@@ -114,7 +114,7 @@ const Navbar = () => {
             <Button
               className="rounded-full px-4 py-2 text-white font-semibold"
               style={{ backgroundColor: primaryGreen }}
-              onClick={() => (window.location.href = "/login")}
+              onClick={() => (window.location.href = "/register")}
             >
               {t("cta.register", "S'INSCRIRE")}
             </Button>
