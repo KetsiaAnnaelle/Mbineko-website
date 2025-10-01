@@ -1,0 +1,475 @@
+@import "tailwindcss";
+
+/* @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap'); */
+
+@layer base {
+  :root {
+    --color-primary: 34 139 34; /* #228B22 */
+    --color-primary-dark: 25 100 25; /* #196419 */
+    --color-secondary: 59 130 246; /* #3B82F6 */
+    --color-accent: 16 185 129; /* #10B981 */
+    --color-warning: 245 158 11; /* #F59E0B */
+    --color-error: 239 68 68; /* #EF4444 */
+    --color-success: 34 197 94; /* #22C55E */
+
+    /* Added dark mode CSS variables */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 142 71% 33%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 142 71% 33%;
+    --radius: 0.5rem;
+
+    /* Enhanced shadows for depth */
+    --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+    --shadow-strong: 0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 20px 50px -10px rgba(0, 0, 0, 0.1);
+
+    /* Glass morphism effects */
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-backdrop: blur(16px);
+  }
+
+  /* Added dark mode color scheme */
+  .dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 142 71% 45%;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    /* Enhanced Lato font stack with better fallbacks */
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "lato", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* Use CSS variables for background and text color */
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Updated heading typography with Serial Semi-Condensed */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Serial Semi-Condensed", "Oswald", system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  /* Enhanced button styles */
+  button {
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Enhanced input styles */
+  input,
+  textarea,
+  select {
+    font-family: "Lato", sans-serif;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Enhanced typography scale with better hierarchy */
+:root {
+  --title-xl: clamp(2.5rem, 4vw, 4rem); /* 40px-64px */
+  --title-lg: clamp(2rem, 3vw, 3rem); /* 32px-48px */
+  --title-md: clamp(1.75rem, 2.5vw, 2.25rem); /* 28px-36px */
+  --title-sm: clamp(1.5rem, 2vw, 1.875rem); /* 24px-30px */
+  --subtitle-lg: clamp(1.25rem, 1.5vw, 1.5rem); /* 20px-24px */
+  --subtitle-md: clamp(1.125rem, 1.25vw, 1.25rem); /* 18px-20px */
+  --body-lg: 1.125rem; /* 18px */
+  --body-md: 1rem; /* 16px */
+  --body-sm: 0.875rem; /* 14px */
+  --caption: 0.75rem; /* 12px */
+}
+
+/* Modern typography utility classes */
+.title-xl {
+  font-size: var(--title-xl);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.title-lg {
+  font-size: var(--title-lg);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.title-md {
+  font-size: var(--title-md);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.title-sm {
+  font-size: var(--title-sm);
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.subtitle-lg {
+  font-size: var(--subtitle-lg);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.subtitle-md {
+  font-size: var(--subtitle-md);
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.body-lg {
+  font-size: var(--body-lg);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.body-md {
+  font-size: var(--body-md);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.body-sm {
+  font-size: var(--body-sm);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.caption {
+  font-size: var(--caption);
+  line-height: 1.4;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* Enhanced shadow utilities */
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+.shadow-medium {
+  box-shadow: var(--shadow-medium);
+}
+.shadow-strong {
+  box-shadow: var(--shadow-strong);
+}
+
+/* Glass morphism utilities */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+}
+
+/* Enhanced animations with better easing */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Modern animation utility classes */
+.animate-slideInDown {
+  animation: slideInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Enhanced staggered animation delays */
+.delay-0 {
+  animation-delay: 0ms;
+}
+.delay-75 {
+  animation-delay: 75ms;
+}
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-150 {
+  animation-delay: 150ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+.delay-700 {
+  animation-delay: 700ms;
+}
+.delay-1000 {
+  animation-delay: 1000ms;
+}
+
+/* Modern gradient utilities */
+.gradient-primary {
+  background: linear-gradient(135deg, rgb(34, 139, 34) 0%, rgb(16, 185, 129) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(147, 51, 234) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, rgb(16, 185, 129) 0%, rgb(5, 150, 105) 100%);
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+
+.hover-scale {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Modern focus styles */
+.focus-ring {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+  border-color: rgb(34, 139, 34);
+}
+
+/* Responsive utilities */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Ajoutez ces animations personnalisées */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced transitions and responsive utilities */
+* {
+  transition-property: color, background-color, border-color, transform, box-shadow, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Enhanced responsive utilities */
+@media (max-width: 640px) {
+  .title-xl {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  .title-lg {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+}
+
+/* Enhanced scroll behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Enhanced focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid rgb(34, 139, 34);
+  outline-offset: 2px;
+}
+
+/* Enhanced selection styles */
+::selection {
+  background-color: rgba(34, 139, 34, 0.2);
+  color: rgb(34, 139, 34);
+}
+
+/* Enhanced loading states */
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Enhanced hover effects for interactive elements */
+.interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced glass morphism effects */
+.glass-enhanced {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Enhanced gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, rgb(34, 139, 34), rgb(16, 185, 129));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
