@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { motion } from "framer-motion"
@@ -16,7 +15,6 @@ const Navbar = () => {
   const { user, logout } = useAuth()
   const { t } = useI18n()
 
-  // const toggleDarkMode = () => setTheme(isDarkMode ? "light" : "dark")
   const changeLanguage = (lang: "FR" | "EN") => setLanguage(lang)
 
   const navLinks = [
@@ -31,7 +29,7 @@ const Navbar = () => {
   const primaryGreen = "#228B22"
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[9999] w-full bg-[green]/10 backdrop-blur-md shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-[9999] w-full bg-[#228B22]/50 backdrop-blur-md shadow-md">
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
@@ -41,7 +39,7 @@ const Navbar = () => {
             transition={{ duration: 0.8 }}
             className="flex items-center gap-3"
           >
-            <img src="/assets/img/logo.png" alt="MBINEKO" className="h-18 w-auto" />
+            <img src="/assets/img/logo.png" alt="MBINEKO" className="h-12 w-auto" />
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -70,7 +68,7 @@ const Navbar = () => {
             <Button
               className="rounded-full px-6 py-2 font-semibold shadow-md text-white"
               style={{ backgroundColor: primaryGreen }}
-              onClick={() => (window.location.href = "/login")}
+              onClick={() => (window.location.href = "/register")}
             >
               {t("cta.register", "S'INSCRIRE")}
             </Button>
@@ -87,12 +85,14 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-
             {/* User avatar */}
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="h-9 w-9 rounded-full bg-[${primaryGreen}] text-white flex items-center justify-center font-semibold">
+                  <button 
+                    className="h-9 w-9 rounded-full text-white flex items-center justify-center font-semibold"
+                    style={{ backgroundColor: primaryGreen }}
+                  >
                     {`${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase()}
                   </button>
                 </DropdownMenuTrigger>
@@ -110,22 +110,25 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Navbar */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-2 ">
             <Button
-              className="rounded-full px-4 py-2 text-white font-semibold"
+              className="rounded-full px-4 py-2 text-white font-semibold text-sm"
               style={{ backgroundColor: primaryGreen }}
               onClick={() => (window.location.href = "/register")}
             >
               {t("cta.register", "S'INSCRIRE")}
             </Button>
-            <button onClick={() => setOpen(true)} className="p-2 rounded-md bg-white/20 hover:bg-white/30 text-white">
+            <button 
+              onClick={() => setOpen(true)} 
+              className="p-2 rounded-md bg-black/20 hover:bg-white/30 text-white"
+            >
               <Menu className="h-5 w-5" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Off-Canvas Mobile Menu */}
+      {/* Off-Canvas Mobile Menu - CORRIGÉ */}
       {open && (
         <motion.div
           initial={{ x: "100%" }}
@@ -134,54 +137,129 @@ const Navbar = () => {
           transition={{ duration: 0.4 }}
           className="fixed inset-0 z-50 md:hidden"
         >
-          <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
-          <aside className="absolute right-0 top-0 h-full w-80 bg-[${primaryGreen}] text-white p-6 flex flex-col justify-between">
+          {/* Overlay */}
+          <div className="absolute inset-0" onClick={() => setOpen(false)} />
+          
+          {/* Menu Panel */}
+          <aside className="absolute right-0 top-0 h-full w-80 bg-gradient-to-b  bg-black/60 shadow-xl">
             {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-semibold">{t("ui.menu", "Menu")}</h3>
-              <button onClick={() => setOpen(false)} className="p-2 rounded-xl hover:bg-green-800">
-                <X className="h-5 w-5" />
+            <div className="flex justify-between items-center p-6 border-b border-green-700">
+              <div className="flex items-center gap-3">
+                <img src="/assets/img/logo.png" alt="MBINEKO" className="h-8 w-auto" />
+                <h3 className="text-lg font-semibold text-white">{t("ui.menu", "Menu")}</h3>
+              </div>
+              <button 
+                onClick={() => setOpen(false)} 
+                className="p-2 rounded-xl hover:bg-green-700 transition-colors"
+              >
+                <X className="h-6 w-6 text-white" />
               </button>
             </div>
 
-            {/* Links */}
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.id}
-                  to={link.id}
-                  smooth
-                  duration={500}
-                  offset={-80}
-                  className="py-3 px-4 rounded-xl hover:bg-green-900 transition-all duration-300"
-                  onClick={() => {
-                    setActiveLink(link.id)
-                    setOpen(false)
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* Navigation Links */}
+            <div className="flex-1 p-6 overflow-y-auto  bg-black/60">
+              <div className="flex flex-col gap-3">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.id}
+                    to={link.id}
+                    smooth
+                    duration={500}
+                    offset={-80}
+                    className={`py-4 px-4 rounded-xl transition-all duration-300 text-lg font-medium ${
+                      activeLink === link.id
+                        ? "bg-white text-green-800 shadow-md"
+                        : "text-white hover:bg-green-700 hover:text-white"
+                    }`}
+                    onClick={() => {
+                      setActiveLink(link.id)
+                      setOpen(false)
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* User section if logged in */}
+              {user && (
+                <div className="mt-8 pt-6 border-t border-green-700">
+                  <div className="flex items-center gap-3 mb-4 px-4">
+                    <div 
+                      className="h-10 w-10 rounded-full text-white flex items-center justify-center font-semibold text-sm"
+                      style={{ backgroundColor: primaryGreen }}
+                    >
+                      {`${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase()}
+                    </div>
+                    <div className="text-white">
+                      <p className="font-medium">{`${user.firstName} ${user.lastName}`}</p>
+                      <p className="text-sm text-green-200">{user.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Button
+                      variant="ghost"
+                      className="justify-start text-white hover:bg-green-700 hover:text-white"
+                      onClick={() => {
+                        window.location.href = "/profile/edit"
+                        setOpen(false)
+                      }}
+                    >
+                      {t("user.editProfile", "Edit profile")}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="justify-start text-white hover:bg-green-700 hover:text-white"
+                      onClick={() => logout()}
+                    >
+                      {t("user.logout", "Logout")}
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="flex flex-col gap-3 mt-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button className="w-full bg-transparent text-white hover:bg-green-900">
-                    <Globe className="h-4 w-4 mr-2" />
-                    {currentLanguage}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="bg-white/10 backdrop-blur-md border border-white/20 text-white w-40 z-[99999]"
-                  align="end"
-                  sideOffset={5}
-                >
-                  <DropdownMenuItem onClick={() => changeLanguage("FR")}>🇫🇷 Français</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => changeLanguage("EN")}>🇺🇸 English</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {/* Footer with language selector */}
+            <div className="p-6 border-t border-green-700  bg-black/60">
+              <div className="flex flex-col gap-4">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="w-full bg-green-700 text-white hover:bg-green-600 border border-green-600">
+                      <Globe className="h-4 w-4 mr-2" />
+                      {currentLanguage === "FR" ? "🇫🇷 Français" : "🇺🇸 English"}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="bg-green-800 border border-green-600 text-white w-full z-[99999]"
+                    align="center"
+                  >
+                    <DropdownMenuItem 
+                      onClick={() => changeLanguage("FR")}
+                      className="hover:bg-green-700 focus:bg-green-700"
+                    >
+                      🇫🇷 Français
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => changeLanguage("EN")}
+                      className="hover:bg-green-700 focus:bg-green-700"
+                    >
+                      🇺🇸 English
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
+                {!user && (
+                  <Button
+                    className="w-full bg-white text-green-800 hover:bg-green-100 font-semibold"
+                    onClick={() => {
+                      window.location.href = "/register"
+                      setOpen(false)
+                    }}
+                  >
+                    {t("cta.register", "S'INSCRIRE")}
+                  </Button>
+                )}
+              </div>
             </div>
           </aside>
         </motion.div>
