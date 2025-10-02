@@ -38,14 +38,18 @@ export default function Header() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex items-center justify-between py-4">
               {/* Logo */}
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                className="flex items-center gap-3"
-              >
-                <img src="/assets/img/logo2.png" alt="logo" className="h-12" />
-              </motion.div>
+
+              <Link to='/'>
+                <motion.div
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="flex items-center gap-3"
+                >
+                  <img src="/assets/img/logo2.png" alt="logo" className="h-12" />
+                </motion.div>
+              
+              </Link>
 
               {/* Navigation Desktop */}
               <nav className="hidden lg:flex items-center flex-1 justify-center mx-12">

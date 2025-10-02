@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { MapPin, Download, FileText, Thermometer, Droplets, Leaf, TreePine } from 'lucide-react';
+import { MapPin, Download, Thermometer, Droplets, Leaf, TreePine } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
 // Mock data for demonstration
@@ -124,7 +124,7 @@ export default function ForestStats({ forest = mockForest }: ForestStatsProps) {
                   </Button>
                 </Link>
                 
-                <Link to="/forests/statistics">
+                {/* <Link to="/forests/statistics">
                   <Button 
                     variant={isStatisticsPage ? "active" : "default"}
                     className={isStatisticsPage ? 
@@ -135,11 +135,11 @@ export default function ForestStats({ forest = mockForest }: ForestStatsProps) {
                     <FileText className="h-4 w-4 mr-2" />
                     Statistiques
                   </Button>
-                </Link>
+                </Link> */}
                 
-                <Button variant="default" className="bg-gray-100 border-gray-200 hover:bg-gray-200 text-gray-600">
+                {/* <Button variant="default" className="bg-gray-100 border-gray-200 hover:bg-gray-200 text-gray-600">
                   Cartes
-                </Button>
+                </Button> */}
                 
                 <div className="flex items-center bg-gray-100 rounded-full px-3 py-1">
                   <span className="text-sm text-gray-600 mr-2">6 mois</span>
@@ -153,10 +153,10 @@ export default function ForestStats({ forest = mockForest }: ForestStatsProps) {
                   PDF
                 </Button>
                 
-                <Button variant="export" className="bg-green-600 hover:bg-green-700">
+                {/* <Button variant="export" className="bg-green-600 hover:bg-green-700">
                   <FileText className="h-4 w-4 mr-2" />
                   Excel
-                </Button>
+                </Button> */}
               </div>
 
               {/* Forest Composition Section */}

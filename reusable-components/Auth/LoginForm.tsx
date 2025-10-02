@@ -36,6 +36,7 @@ export default function LoginForm({ onSwitchToRegister, onSubmit }: LoginFormPro
     try {
       const response = await authAPI.login(values)
       onSubmit(response)
+      navigate('/forests') // redirection vers le tableau de bord après connexion réussie
     } catch (err: any) {
       if (err.response?.data?.message) {
         setError(err.response.data.message)

@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 interface RegisterFormProps {
   onSwitchToLogin: () => void
-  onSubmit: (data: any) => void
+  onSubmit: (data: any) => Promise<void>
 }
 
 const validationSchema = Yup.object({
@@ -24,6 +24,19 @@ const validationSchema = Yup.object({
 export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    setIsSubmitting(true)
+    try {
+      await onSubmit(values)
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription:', error)
+    } finally {
+      setIsSubmitting(false)
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-100">
@@ -46,9 +59,9 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
           acceptNews: false
         }}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       >
-        {() => (
+        {({ isSubmitting: formikSubmitting }) => (
           <Form className="space-y-6">
             {/* Row 1 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -57,7 +70,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                 <Field
                   name="firstName"
                   type="text"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                   placeholder="Votre prénom"
                 />
                 <ErrorMessage name="firstName" component="div" className="text-red-500 text-xs mt-1" />
@@ -67,7 +80,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                 <Field
                   name="lastName"
                   type="text"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                   placeholder="Votre nom"
                 />
                 <ErrorMessage name="lastName" component="div" className="text-red-500 text-xs mt-1" />
@@ -83,7 +96,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                   <Field
                     name="email"
                     type="email"
-                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                     placeholder="votre@email.com"
                   />
                 </div>
@@ -96,7 +109,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                   <Field
                     name="phone"
                     type="tel"
-                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                     placeholder="+33 6 12 34 56 78"
                   />
                 </div>
@@ -113,7 +126,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                   <Field
                     name="password"
                     type={showPassword ? 'text' : 'password'}
-                    className="w-full pl-10 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-10 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                     placeholder="Minimum 8 caractères"
                   />
                   <button
@@ -133,7 +146,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                   <Field
                     name="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
-                    className="w-full pl-10 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-10 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                     placeholder="Confirmez votre mot de passe"
                   />
                   <button
@@ -157,7 +170,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                   <Field
                     name="organization"
                     type="text"
-                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-500"
                     placeholder="Nom de votre organisation"
                   />
                 </div>
@@ -167,7 +180,7 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                 <Field
                   as="select"
                   name="organizationType"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#228B22] focus:border-[#228B22] transition-all bg-gray-50 focus:bg-white text-gray-900"
                 >
                   <option value="">Sélectionnez un type</option>
                   <option value="entreprise">Entreprise</option>
@@ -192,13 +205,15 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
                   J'accepte les <a href="#" className="text-[#228B22] hover:underline">conditions d'utilisation</a> et la <a href="#" className="text-[#228B22] hover:underline">politique de confidentialité</a>
                 </span>
               </label>
+              <ErrorMessage name="acceptTerms" component="div" className="text-red-500 text-xs mt-1" />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-[#228B22] to-green-700 text-white py-4 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              disabled={isSubmitting || formikSubmitting}
+              className="w-full bg-gradient-to-r from-[#228B22] to-green-700 text-white py-4 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              Créer mon compte MBINEKO
+              {isSubmitting ? 'Création du compte...' : 'Créer mon compte MBINEKO'}
             </button>
 
             <div className="text-center">
@@ -219,4 +234,3 @@ export default function RegisterForm({ onSwitchToLogin, onSubmit }: RegisterForm
     </div>
   )
 }
-

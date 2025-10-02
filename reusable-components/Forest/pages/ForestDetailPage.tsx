@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import ForestStats from "../sections/ForestStats"
-import CTASection from "../sections/CTASection"
+// import CTASection from "../sections/CTASection"
 import Header from "../../Layout/Header"
 import Footer from "../../Layout/Footer"
 import type { Forest } from "@/types/forest"
@@ -124,7 +124,7 @@ export default function ForestDetailPage({ forest }: ForestDetailPageProps) {
       )}
 
       <ForestStats forest={forest} />
-      <CTASection />
+      {/* <CTASection /> */}
       <Footer />
     </div>
   )

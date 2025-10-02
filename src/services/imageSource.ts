@@ -12,8 +12,9 @@ const defaultLocalImages = [
   // Fallbacks without space or different names present in repo
   '/assets/imageForet/forest5.jfif',
   '/assets/imageForet/forest6.jfif',
-  '/assets/imageForet/forest7.jfif',
-  '/assets/imageForet/forest8.jfif',
+  '/assets/imageForet/forest-apad-1.jpg',
+  '/assets/imageForet/forest-apad-2.jpg',
+  '/assets/imageForet/forest-apad-3.jpg',
   // '/assets/img/forest2.jpg',
   // '/assets/img/forets1.jpg',
   // '/assets/img/ODD9.jpg',

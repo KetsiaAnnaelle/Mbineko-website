@@ -65,7 +65,7 @@ const Contact = () => {
                 type="text"
                 name="phone"
                 placeholder="Votre numéro de téléphone"
-                className="w-full border rounded-lg px-4 py-3"
+                className="w-full border rounded-lg px-4 py-3 text-black"
                 value={formik.values.phone}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -81,7 +81,7 @@ const Contact = () => {
                 name="message"
                 placeholder="Votre message"
                 rows={4}
-                className="w-full border rounded-lg px-4 py-3"
+                className="w-full border rounded-lg px-4 py-3 text-black"
                 value={formik.values.message}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
